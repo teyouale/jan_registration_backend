@@ -1,0 +1,13 @@
+### Create a new profile
+POST   http://localhost:3002/users
+Content-Type: application/json
+
+{
+  "email": "finance@gmail.com",
+  "password": "janderebaw",
+  "role": "finance"
+}
+
+
+### Create a new profile
+GET  http://localhost:3002/users

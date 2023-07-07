@@ -1,0 +1,51 @@
+### Create a new profile
+POST http://localhost:3002/profile/new
+Content-Type: application/json
+
+{
+    "firstName":"biruk",
+    "middleName" : "birhanu",
+    "lastName" : "mekdes mulgeta",
+    "baptistName" : "hayele",
+    "kids" : "mekdes",
+    "subCity" : "lafto",
+    "city" : "Addis abeba",
+    "wereda" : "mekdes mulgeta",
+    "church" : "mikael",
+    "graduate" : "mekdes",
+    "course" : "enginnering",
+    "certificate" : " mulgeta",
+    "language" : "amharic",
+    "participation" : "mekdes mulgeta",
+    "whichway" : "mekdes mulgeta",
+    "expireance" : "mekdes mulgeta",
+    "skill" : "mekdes mulgeta",
+    "family" : "mekdes mulgeta",
+    "email" : "maki@gmail.com",
+    "gender" : 0,
+    "marriageStatus" : 1,
+    "title" : 4,
+    "phoneNumber" : "+251912345678"
+}
+
+### Find a particular user with a give id
+GET http://localhost:3002/profile
+
+### Find all with a given query string
+GET http://localhost:3002/profile
+
+### Delete user with a given ID
+DELETE http://localhost:3002/profile
+
+### Update profile
+PATCH http://localhost:3000/profile/1
+Content-Type: application/json
+
+{
+    "firstName":"Eyoel",
+    "middleName" : "Fikadu",
+    "phoneNumber" : "+251912466771"
+}
+
+### My profile
+GET http://localhost:4000/profile/myprofile

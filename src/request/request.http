@@ -1,0 +1,34 @@
+### Create a new profile
+POST http://localhost:3002/request/add
+Content-Type: application/json
+
+{
+    "family":"biruk",
+    "managerName" : "birhanu",
+    "reason" : "mekdes mulgeta",
+    "roomType" : "hayele",
+    "date" : "20/23/1201",
+    "time" : "lafto"
+}
+
+### Find a particular user with a give id
+GET http://localhost:3002/profile
+
+### Find all with a given query string
+GET http://localhost:3002/request
+
+### Delete user with a given ID
+DELETE http://localhost:3002/profile
+
+### Update profile
+PATCH http://localhost:3000/profile/1
+Content-Type: application/json
+
+{
+    "firstName":"Eyoel",
+    "middleName" : "Fikadu",
+    "phoneNumber" : "+251912466771"
+}
+
+### My profile
+GET http://localhost:4000/profile/myprofile
