@@ -26,8 +26,8 @@ export class ProfileController {
   constructor(private profileService: ProfileService) {}
 
   @Post('/new')
-  newProfle(@Param('userId') userId: string, @Body() body: NewProfileDto) {
-    this.profileService.create(userId, body);
+  newProfle(@Body() body: NewProfileDto) {
+    this.profileService.create(body.email, body);
   }
 
   @Get()
@@ -72,11 +72,11 @@ export class ProfileController {
     return this.profileService.remove(id);
   }
 
-  @Patch('/:id')
-  updateProfile(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() dto: UpdateProfileDto,
-  ) {
-    return this.profileService.update(id, dto);
-  }
+  // @Patch('/:id')
+  // updateProfile(
+  //   @Param('id', new ParseUUIDPipe()) id: string,
+  //   @Body() dto: UpdateProfileDto,
+  // ) {
+  //   return this.profileService.update(id, dto);
+  // }
 }

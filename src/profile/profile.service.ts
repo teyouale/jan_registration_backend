@@ -10,11 +10,17 @@ import { Profile } from './entity/profile.entity';
 import { NewProfileDto } from './dtos/new-profile.dto';
 import { UsersService } from 'src/users/users.service';
 import { DocumentService } from 'src/document/document/document.service';
+import { BackgroundService } from 'src/background/background.service';
+import { AddressService } from 'src/location/address/address.service';
+import { ChurchService } from 'src/church/church.service';
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(Profile) private repo: Repository<Profile>,
     private userService: UsersService,
+    private backgroundService: BackgroundService,
+    private churchServuce: ChurchService,
+    private addressService: AddressService,
     private documentService: DocumentService,
   ) {}
 
@@ -23,9 +29,17 @@ export class ProfileService {
     dto: NewProfileDto,
     file: Express.Multer.File = null,
   ) {
+    console.log('create profile', email);
+
     const user = await this.userService.findOne(email);
     if (user) {
       const profile = this.repo.create(dto);
+
+      // profile.works = await this.backgroundService.createWork(dto.work);
+      // //profile.addresses = await this.addressService.create(dto.address);
+      // profile.location = await this.addressService.createLocation(dto.location);
+      // profile.churches = await this.churchServuce.create(dto.church);
+      // profile.skills = await this.backgroundService.createSkill(dto.skill);
       profile.user = user;
 
       return this.repo.save(profile);

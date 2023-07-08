@@ -18,6 +18,12 @@ import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { RequestModule } from './request/request.module';
 import { Request } from './request/entities/request.entity';
+import { ChurchModule } from './church/church.module';
+import { BackgroundModule } from './background/background.module';
+import { Church } from './church/entities/church.entity';
+import { Work } from './background/entities/work.entity';
+import { Skill } from './background/entities/skill.entity';
+import { Education } from './background/entities/education.entity';
 
 @Module({
   imports: [
@@ -41,7 +47,18 @@ import { Request } from './request/entities/request.entity';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DATABASE'),
-        entities: [Profile, User, Document, Location, Address, Request],
+        entities: [
+          Profile,
+          User,
+          Document,
+          Location,
+          Address,
+          Request,
+          Church,
+          Work,
+          Skill,
+          Education,
+        ],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -53,6 +70,8 @@ import { Request } from './request/entities/request.entity';
     LocationdataModule,
     AddressModule,
     RequestModule,
+    ChurchModule,
+    BackgroundModule,
   ],
   controllers: [AppController],
   providers: [AppService],

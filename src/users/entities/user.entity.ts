@@ -34,7 +34,6 @@ export class User {
   @Column({ default: UserRoleType })
   role: UserRoleType;
 
-  @OneToOne(() => Profile, (profile) => profile.user, { eager: true })
-  @JoinColumn()
+  @OneToOne(() => Profile, (profile) => profile.user, { lazy: true })
   profile: Profile;
 }

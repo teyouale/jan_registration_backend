@@ -9,19 +9,19 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
-import { Title } from '../enums/profile-title.enum';
+import { Location } from 'src/location/address/entities/location.entity';
+import { Address } from 'src/location/address/entities/address.entity';
+import { Skill } from 'src/background/entities/skill.entity';
+import { Education } from 'src/background/entities/education.entity';
+import { Work } from 'src/background/entities/work.entity';
+import { Church } from 'src/church/entities/church.entity';
 
 @Entity()
 export class Profile {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @OneToOne(() => User, (user) => user.profile, { lazy: true })
-  user: User;
-
-  @Column({ nullable: true })
-  userId: number;
 
   @Column()
   firstName: string;
@@ -48,55 +48,64 @@ export class Profile {
   kids: string;
 
   @Column()
-  subCity: string;
-
-  @Column()
-  city: string;
-
-  @Column()
-  wereda: string;
-
-  @Column()
-  church: string;
-
-  @Column()
-  graduate: string;
-
-  @Column({ nullable: true })
-  course: string;
-
-  @Column({ nullable: true })
-  certificate: string;
-
-  @Column({ nullable: true })
-  language: string;
-
-  @Column({ nullable: true })
-  participation: string;
-
-  @Column({ nullable: true })
-  whichWay: string;
-
-  @Column({ nullable: true })
-  expireance: string;
-
-  @Column({ nullable: true })
-  skill: string;
-
-  @Column()
-  family: string;
-
-  // @Column({ default: 0 })
-  // title: Title;
-
-  @Column()
-  phoneNumber: string;
-
-  @Column()
   email: string;
+
+  @Column()
+  phone: string;
 
   @Column({ nullable: true })
   profile_picture_id: string;
+
+  @OneToOne(() => User, (user) => user.profile, { lazy: true })
+  user: User;
+
+  // @OneToOne(() => Church, (churches) => churches.profile, {
+  //   lazy: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // churches: Church;
+
+  // @OneToOne(() => Work, (work) => work.profile, {
+  //   lazy: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // works: Work;
+
+  // @OneToOne(() => Location, {
+  //   lazy: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // location: Location;
+
+  // @OneToMany(() => Address, (address) => address.profile, {
+  //   lazy: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // addresses: Address[];
+
+  // @OneToMany(() => Skill, (skill) => skill.profile, {
+  //   lazy: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // skills: Skill[];
+
+  // @OneToMany(() => Education, (education) => education.profile, {
+  //   lazy: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // education: Education[];
 
   @AfterInsert()
   logInsert() {}

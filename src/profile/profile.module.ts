@@ -5,9 +5,23 @@ import { ProfileService } from './profile.service';
 import { Profile } from './entity/profile.entity';
 import { UsersModule } from 'src/users/users.module';
 import { DocumentModule } from 'src/document/document/document.module';
+import { ChurchModule } from 'src/church/church.module';
+import { Church } from 'src/church/entities/church.entity';
+import { Background } from 'src/background/entities/background.entity';
+import { Skill } from 'src/background/entities/skill.entity';
+import { BackgroundModule } from 'src/background/background.module';
+import { Address } from 'src/location/address/entities/address.entity';
+import { AddressModule } from 'src/location/address/address.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Profile]), UsersModule, DocumentModule],
+  imports: [
+    TypeOrmModule.forFeature([Profile, Church, Skill, Address]),
+    UsersModule,
+    DocumentModule,
+    ChurchModule,
+    BackgroundModule,
+    AddressModule,
+  ],
   controllers: [ProfileController],
   providers: [ProfileService],
   exports: [ProfileService],

@@ -1,9 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { AddressNameSpace } from '../enums/address.namespace.enum';
 import { Profile } from 'src/profile/entity/profile.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Address {
+export class Skill {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,9 +15,9 @@ export class Address {
   @Column()
   value: string;
 
-  @Column()
+  @Column({ nullable: true })
   isPrimary: boolean;
 
-  // @ManyToOne(() => Profile, (profile) => profile.addresses)
+  // @ManyToOne(() => Profile, (profile) => profile.skills)
   // profile: Profile;
 }

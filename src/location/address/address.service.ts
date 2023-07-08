@@ -1,34 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateAddressDto } from "./dto/create-address.dto";
-import { CreateLocaitonRequestDto } from "./dto/create-location.request.dto";
-import { UpdateAddressDto } from "./dto/update-address.dto";
-import { Address } from "./entities/address.entity";
-import { Location } from "./entities/location.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateAddressDto } from './dto/create-address.dto';
+import { CreateLocaitonRequestDto } from './dto/create-location.request.dto';
+import { UpdateAddressDto } from './dto/update-address.dto';
+import { Address } from './entities/address.entity';
+import { Location } from './entities/location.entity';
 
 @Injectable()
 export class AddressService {
   constructor(
     @InjectRepository(Location) private locationRepo: Repository<Location>,
-    @InjectRepository(Address) private addressRepo: Repository<Address>
+    @InjectRepository(Address) private addressRepo: Repository<Address>,
   ) {}
   createLocation(mainBranchLocation: CreateLocaitonRequestDto) {
     const location = this.locationRepo.create(mainBranchLocation);
 
     return this.locationRepo.save(location);
   }
-  create(createAddressDto: CreateAddressDto) {
-    createAddressDto.addresses.forEach((indiAdd) => {
-      var address = this.addressRepo.create();
-      address.isPrimary = indiAdd.isPrimary;
-      address.nameSpace = createAddressDto.nameSpace;
-      address.referenceId = createAddressDto.referenceId;
-      address.type = indiAdd.type;
-      address.value = indiAdd.vlaue;
-
-      this.addressRepo.save(address);
+  create(createAddressDto: CreateAddressDto[]) {
+    const addressArray = [];
+    createAddressDto.forEach((x) => {
+      const address = this.addressRepo.create(x);
+      addressArray.push(address);
     });
+    return addressArray;
   }
 
   findAll() {
