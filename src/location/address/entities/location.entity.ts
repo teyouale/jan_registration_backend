@@ -1,4 +1,11 @@
-import { Column, Double, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Profile } from 'src/profile/entity/profile.entity';
+import {
+  Column,
+  Double,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Location {
@@ -22,4 +29,7 @@ export class Location {
 
   @Column({ nullable: true })
   specificLocation: string;
+
+  @OneToOne(() => Profile, (profile) => profile.location, { eager: true })
+  profile: Profile;
 }

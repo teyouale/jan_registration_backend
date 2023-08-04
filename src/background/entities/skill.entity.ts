@@ -1,5 +1,11 @@
 import { Profile } from 'src/profile/entity/profile.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Skill {
@@ -9,15 +15,16 @@ export class Skill {
   @Column()
   referenceId: string;
 
-  @Column()
+  @Column({ nullable: true })
   type: string;
 
-  @Column()
+  @Column({ nullable: true })
   value: string;
 
   @Column({ nullable: true })
   isPrimary: boolean;
 
-  // @ManyToOne(() => Profile, (profile) => profile.skills)
-  // profile: Profile;
+  @ManyToOne(() => Profile, (profile) => profile.skills)
+  @JoinColumn()
+  profile: Profile;
 }

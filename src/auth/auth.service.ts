@@ -17,15 +17,15 @@ export class AuthService {
     private jwtService: JwtService, // private teacherService: TeachersService, // private studentService: StudentsService, // private employeeService: EmployeesService
   ) {}
 
-  async validateUser(username: string, pass: string) {
-    const user = await this.usersService.findOne(username);
+  async validateUser(phoneNumber: string, pass: string) {
+    const user = await this.usersService.findOne(phoneNumber);
     //check pssword
     if (user && user.password === pass) {
       const { ...result } = user;
 
       return result;
     }
-    return null;
+    return;
   }
 
   async login(user: User) {

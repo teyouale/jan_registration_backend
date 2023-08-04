@@ -25,21 +25,22 @@ export class ProfileService {
   ) {}
 
   async create(
-    email: string,
+    phoneNumber: string,
     dto: NewProfileDto,
     file: Express.Multer.File = null,
   ) {
-    console.log('create profile', email);
+    console.log('create profile', phoneNumber);
 
-    const user = await this.userService.findOne(email);
+    const user = await this.userService.findOne(phoneNumber);
     if (user) {
       const profile = this.repo.create(dto);
+      console.log(profile);
 
-      // profile.works = await this.backgroundService.createWork(dto.work);
+      profile.works = await this.backgroundService.createWork(dto.work);
       // //profile.addresses = await this.addressService.create(dto.address);
-      // profile.location = await this.addressService.createLocation(dto.location);
-      // profile.churches = await this.churchServuce.create(dto.church);
-      // profile.skills = await this.backgroundService.createSkill(dto.skill);
+      profile.location = await this.addressService.createLocation(dto.location);
+      profile.churches = await this.churchServuce.create(dto.church);
+      profile.skills = await this.backgroundService.createSkill(dto.skill);
       profile.user = user;
 
       return this.repo.save(profile);

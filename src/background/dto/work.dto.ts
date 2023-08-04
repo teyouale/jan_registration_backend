@@ -9,4 +9,8 @@ export class CreateWorkDto {
   @ApiProperty()
   @IsString()
   year_of_work: string;
+
+  @ApiProperty()
+  @IsString()
+  license: string;
 }

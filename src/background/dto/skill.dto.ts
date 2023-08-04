@@ -8,11 +8,11 @@ export class CreateSkillsDto {
 
   @ApiProperty()
   @IsString()
-  type: string;
+  langugaeSkill: [];
 
   @ApiProperty()
   @IsString()
-  value: string;
+  professionSkill: [];
 
   @ApiProperty()
   @IsString()

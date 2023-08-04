@@ -16,7 +16,7 @@ export class AddressService {
   createLocation(mainBranchLocation: CreateLocaitonRequestDto) {
     const location = this.locationRepo.create(mainBranchLocation);
 
-    return this.locationRepo.save(location);
+    return location; //this.locationRepo.save(location);
   }
   create(createAddressDto: CreateAddressDto[]) {
     const addressArray = [];

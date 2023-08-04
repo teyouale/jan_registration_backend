@@ -1,5 +1,11 @@
 import { Profile } from 'src/profile/entity/profile.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Church {
@@ -9,12 +15,16 @@ export class Church {
   @Column()
   repent_father: string;
 
-  @Column()
+  @Column({ nullable: true })
   participate: string;
 
-  @Column({ nullable: true })
-  participateBy: string;
+  @Column()
+  generation: string;
 
-  // @OneToOne(() => Profile, (profile) => profile.churches)
-  // profile: Profile;
+  @Column()
+  branch: string;
+
+  @OneToOne(() => Profile, (profile) => profile.churches)
+  @JoinColumn()
+  profile: Profile;
 }

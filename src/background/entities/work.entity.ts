@@ -18,6 +18,10 @@ export class Work {
   @Column({ nullable: true })
   year_of_work: string;
 
-  // @OneToOne(() => Profile, (profile) => profile.works, { eager: true })
-  // profile: Profile;
+  @Column({ nullable: true })
+  license: string;
+
+  @OneToOne(() => Profile, (profile) => profile.works, { eager: true })
+  @JoinColumn()
+  profile: Profile;
 }

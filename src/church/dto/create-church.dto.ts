@@ -12,5 +12,9 @@ export class CreateChurchDto {
 
   @ApiProperty()
   @IsString()
-  participateBy: string;
+  generation: string;
+
+  @ApiProperty()
+  @IsString()
+  branch: string;
 }

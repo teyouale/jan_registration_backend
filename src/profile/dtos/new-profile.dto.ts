@@ -43,6 +43,11 @@ export class NewProfileDto {
   @ApiProperty()
   @IsString()
   @IsDefined()
+  title: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsDefined()
   firstName: string;
 
   @ApiProperty()
@@ -87,7 +92,7 @@ export class NewProfileDto {
   @Type(() => CreateSkillsDto)
   @ApiProperty({ type: [CreateSkillsDto] })
   @ValidateNested({})
-  skill: CreateSkillsDto[];
+  skill: CreateSkillsDto;
 
   @ApiProperty()
   @IsObject()
@@ -99,10 +104,10 @@ export class NewProfileDto {
   @IsNotEmpty()
   church: CreateChurchDto;
 
-  @ApiProperty()
-  @IsObject()
-  @IsNotEmpty()
-  address: CreateAddressDto;
+  // @ApiProperty()
+  // @IsObject()
+  // @IsNotEmpty()
+  // address: CreateAddressDto;
 
   @ApiProperty()
   @IsObject()

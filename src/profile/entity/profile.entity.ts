@@ -23,6 +23,9 @@ export class Profile {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ nullable: true })
+  title: string;
+
   @Column()
   firstName: string;
 
@@ -47,7 +50,7 @@ export class Profile {
   @Column()
   kids: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
   @Column()
@@ -56,32 +59,32 @@ export class Profile {
   @Column({ nullable: true })
   profile_picture_id: string;
 
-  @OneToOne(() => User, (user) => user.profile, { lazy: true })
+  @OneToOne(() => User, (user) => user.profile, { lazy: true, cascade: true })
   user: User;
 
-  // @OneToOne(() => Church, (churches) => churches.profile, {
-  //   lazy: true,
-  //   cascade: true,
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // churches: Church;
+  @OneToOne(() => Church, (churches) => churches.profile, {
+    lazy: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  churches: Church;
 
-  // @OneToOne(() => Work, (work) => work.profile, {
-  //   lazy: true,
-  //   cascade: true,
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // works: Work;
+  @OneToOne(() => Work, (work) => work.profile, {
+    lazy: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  works: Work;
 
-  // @OneToOne(() => Location, {
-  //   lazy: true,
-  //   cascade: true,
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // location: Location;
+  @OneToOne(() => Location, {
+    lazy: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  location: Location;
 
   // @OneToMany(() => Address, (address) => address.profile, {
   //   lazy: true,
@@ -91,21 +94,21 @@ export class Profile {
   // })
   // addresses: Address[];
 
-  // @OneToMany(() => Skill, (skill) => skill.profile, {
-  //   lazy: true,
-  //   cascade: true,
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // skills: Skill[];
+  @OneToMany(() => Skill, (skill) => skill.profile, {
+    lazy: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  skills: Skill[];
 
-  // @OneToMany(() => Education, (education) => education.profile, {
-  //   lazy: true,
-  //   cascade: true,
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // education: Education[];
+  @OneToMany(() => Education, (education) => education.profile, {
+    lazy: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  education: Education[];
 
   @AfterInsert()
   logInsert() {}

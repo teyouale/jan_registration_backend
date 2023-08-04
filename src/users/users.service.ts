@@ -1,30 +1,40 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { updatePasswordRequest } from "./dto/update-password.request.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { User } from "./entities/user.entity";
-import { UserRoleType } from "./enums/user-role.enum";
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
+import { updatePasswordRequest } from './dto/update-password.request.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
+import { UserRoleType } from './enums/user-role.enum';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
   async create(createUserDto: CreateUserDto) {
-    const check = await this.findOne(createUserDto.email);
+    const check = await this.findOne(createUserDto.phoneNumber);
     if (check) {
-      throw new BadRequestException("Email {} already exists");
+      throw new BadRequestException('phone number {} already exists');
     }
     const user = this.repo.create(createUserDto);
 
     return this.repo.save(user);
   }
 
+  async createBulk(createUserDtos: string[]) {
+    const usersArray = [];
+    createUserDtos.forEach((x) => {
+      const users = this.repo.create({ phoneNumber: x });
+      usersArray.push(users);
+    });
+
+    return this.repo.save(usersArray);
+  }
+
   async UpdatePassword(updatePwdDto: updatePasswordRequest) {
     const user = await this.findById(updatePwdDto.id);
     if (!user) {
-      throw new BadRequestException("Email doesnt exists");
+      throw new BadRequestException('Email doesnt exists');
     }
 
     user.email = updatePwdDto.email;
@@ -35,42 +45,40 @@ export class UsersService {
     return user;
   }
 
-  async createFromProfile(email: string, role: UserRoleType) {
-    var isEmailChangeRequired = false;
+  async createFromProfile(phoneNumber: string, role: UserRoleType) {
+    var Is = false;
 
-    if (!email) {
-      const crypto = require("crypto");
-      email = crypto.randomUUID();
-      isEmailChangeRequired = true;
+    if (!phoneNumber) {
+      const crypto = require('crypto');
+      phoneNumber = crypto.randomUUID();
     }
 
-    const check = await this.findOne(email);
+    const check = await this.findOne(phoneNumber);
     if (check) {
-      throw new BadRequestException("Email {} already exists");
+      throw new BadRequestException('Phone Number {} already exists');
     }
 
     var user = this.repo.create({
-      email,
+      phoneNumber,
       password: Math.random().toString(36).slice(-8),
       role,
       pwd_change_required: true,
-      email_change_required: isEmailChangeRequired,
     });
 
     // user.profile = profile;
     user = await this.repo.save(user);
-    return user.email;
+    return user.phoneNumber;
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.repo.find();
   }
 
   findById(id: string) {
     return this.repo.findOneBy({ id });
   }
-  findOne(email: string) {
-    return this.repo.findOneBy({ email });
+  findOne(phoneNumber: string) {
+    return this.repo.findOneBy({ phoneNumber });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

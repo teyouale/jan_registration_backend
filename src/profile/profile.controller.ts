@@ -27,7 +27,7 @@ export class ProfileController {
 
   @Post('/new')
   newProfle(@Body() body: NewProfileDto) {
-    this.profileService.create(body.email, body);
+    this.profileService.create(body.phone, body);
   }
 
   @Get()

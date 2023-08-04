@@ -15,7 +15,8 @@ export class ChurchService {
     const church = new Church();
 
     church.participate = createChurchDto.participate;
-    church.participateBy = createChurchDto.participate;
+    church.branch = createChurchDto.branch;
+    church.generation = createChurchDto.generation;
     church.repent_father = createChurchDto.repent_father;
 
     return church;

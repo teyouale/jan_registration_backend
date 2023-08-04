@@ -18,22 +18,31 @@ export class BackgroundService {
     @InjectRepository(Skill) private skillrepo: Repository<Skill>,
     @InjectRepository(Work) private workrepo: Repository<Work>,
   ) {}
-  async create(createeducationDto: CreateEducationDto): Promise<Education> {
-    const background = new Education();
+  async create(createeducationDto: CreateEducationDto[]): Promise<Education[]> {
+    const educations: Education[] = [];
+    createeducationDto.forEach((education) => {
+      const background = this.repo.create();
+      background.filed = education.filed;
+      background.school_level = education.school_level;
+      background.referenceId = education.referenceId;
+      educations.push(background);
+    });
 
-    background.filed = createeducationDto.filed;
-    background.school_level = createeducationDto.school_level;
-
-    return this.repo.save(background);
+    return educations;
   }
 
-  async createSkill(createskilldto: CreateSkillsDto[]): Promise<Skill[]> {
+  async createSkill(createskilldto: CreateSkillsDto): Promise<Skill[]> {
     const skills: Skill[] = [];
-    createskilldto.forEach((skill) => {
+    createskilldto.langugaeSkill.forEach((skill) => {
       const background2 = this.skillrepo.create();
-      background2.type = skill.type;
-      background2.value = skill.value;
-      background2.referenceId = skill.referenceId;
+      background2.type = 'Language';
+      background2.value = skill;
+      skills.push(background2);
+    });
+    createskilldto.professionSkill.forEach((skill) => {
+      const background2 = this.skillrepo.create();
+      background2.type = 'Profession';
+      background2.value = skill;
       skills.push(background2);
     });
     return skills;
@@ -44,6 +53,7 @@ export class BackgroundService {
 
     background3.sector_of_work = createworkdto.sector_of_work;
     background3.year_of_work = createworkdto.year_of_work;
+    background3.license = createworkdto.license;
 
     return background3;
   }

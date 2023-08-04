@@ -19,7 +19,7 @@ export class BackgroundController {
 
   @Post('/education')
   create(@Body() createeducationDto: CreateEducationDto) {
-    return this.backgroundService.create(createeducationDto);
+    // return this.backgroundService.create(createeducationDto);
   }
 
   @Post('/skill')
