@@ -32,6 +32,8 @@ export class BackgroundService {
   }
 
   async createSkill(createskilldto: CreateSkillsDto): Promise<Skill[]> {
+    console.log('skilldto', createskilldto);
+
     const skills: Skill[] = [];
     createskilldto.langugaeSkill.forEach((skill) => {
       const background2 = this.skillrepo.create();

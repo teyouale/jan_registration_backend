@@ -12,7 +12,7 @@ export class Skill {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   referenceId: string;
 
   @Column({ nullable: true })
