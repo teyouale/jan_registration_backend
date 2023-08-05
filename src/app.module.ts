@@ -47,6 +47,7 @@ import { Education } from './background/entities/education.entity';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DATABASE'),
+        ssl: true,
         entities: [
           Profile,
           User,
