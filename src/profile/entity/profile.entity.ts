@@ -59,6 +59,15 @@ export class Profile {
   @Column({ nullable: true })
   profile_picture_id: string;
 
+  @Column({ nullable: false, default: 'profile' })
+  photo_url: string;
+
+  @Column({ nullable: false, default: 'profile' })
+  passport_url: string;
+
+  @Column({ nullable: false, default: 'profile' })
+  card_url: string;
+
   @OneToOne(() => User, (user) => user.profile, { lazy: true, cascade: true })
   user: User;
 

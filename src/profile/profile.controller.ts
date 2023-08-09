@@ -27,7 +27,7 @@ export class ProfileController {
 
   @Post('/new')
   newProfle(@Body() body: NewProfileDto) {
-    this.profileService.create(body.phone, body);
+    return this.profileService.create(body.phone, body);
   }
 
   @Get()
@@ -54,6 +54,21 @@ export class ProfileController {
     @UploadedFile() file: Express.Multer.File,
   ) {
     this.profileService.createProfilePic(profileId, file);
+  }
+
+  @Post(':id/savePic')
+  saveProfile(@Param('id') id: string, @Body() photo: string) {
+    return this.profileService.saveProfilePicture(id, photo);
+  }
+
+  @Post(':id/savePassport')
+  savePassport(@Param('id') id: string, @Body() passports: string) {
+    return this.profileService.savePassport(id, passports);
+  }
+
+  @Post(':id/saveCard')
+  savecard(@Param('id') id: string, @Body() card: string) {
+    return this.profileService.saveCard(id, card);
   }
 
   @Get('/myprofile')

@@ -77,6 +77,9 @@ export class NewProfileDto {
   marriageStatus: string;
 
   @ApiProperty()
+  profile_picture_id: string;
+
+  @ApiProperty()
   @IsDefined()
   @IsArray()
   @ValidateNested()
@@ -103,11 +106,6 @@ export class NewProfileDto {
   @IsObject()
   @IsNotEmpty()
   church: CreateChurchDto;
-
-  // @ApiProperty()
-  // @IsObject()
-  // @IsNotEmpty()
-  // address: CreateAddressDto;
 
   @ApiProperty()
   @IsObject()

@@ -8,9 +8,9 @@ export class CreateEducationDto {
 
   @ApiProperty()
   @IsString()
-  school_level: string;
+  type: string;
 
   @ApiProperty()
   @IsString()
-  filed: string;
+  value: string;
 }

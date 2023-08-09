@@ -12,14 +12,14 @@ export class Education {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   referenceId: string;
 
   @Column()
-  school_level: string;
+  type: string;
 
   @Column()
-  filed: string;
+  value: string;
 
   @ManyToOne(() => Profile, (profile) => profile.education)
   @JoinColumn()

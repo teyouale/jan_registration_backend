@@ -22,18 +22,37 @@ export class BackgroundService {
     const educations: Education[] = [];
     createeducationDto.forEach((education) => {
       const background = this.repo.create();
-      background.filed = education.filed;
-      background.school_level = education.school_level;
+      background.type = education.type;
+      background.value = education.value;
       background.referenceId = education.referenceId;
       educations.push(background);
     });
 
     return educations;
   }
+  async createProfession(
+    createeducationDto: CreateEducationDto[],
+  ): Promise<Education[]> {
+    const educations: Education[] = [];
+    createeducationDto.forEach((education) => {
+      const background = this.repo.create();
+      background.type = education.type;
+      background.value = education.value;
+      background.referenceId = education.referenceId;
+      educations.push(background);
+    });
+    // createeducationDto.filed.forEach((education) => {
+    //   const background = this.repo.create();
+    //   background.type = education;
+    //   background.value = education;
+    //   background.referenceId = education;
+    //   educations.push(background);
+    // });
+
+    return educations;
+  }
 
   async createSkill(createskilldto: CreateSkillsDto): Promise<Skill[]> {
-    console.log('skilldto', createskilldto);
-
     const skills: Skill[] = [];
     createskilldto.langugaeSkill.forEach((skill) => {
       const background2 = this.skillrepo.create();

@@ -12,10 +12,11 @@ import { Skill } from 'src/background/entities/skill.entity';
 import { BackgroundModule } from 'src/background/background.module';
 import { Address } from 'src/location/address/entities/address.entity';
 import { AddressModule } from 'src/location/address/address.module';
+import { Education } from 'src/background/entities/education.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Profile, Church, Skill, Address]),
+    TypeOrmModule.forFeature([Profile, Church, Skill, Address, Education]),
     UsersModule,
     DocumentModule,
     ChurchModule,

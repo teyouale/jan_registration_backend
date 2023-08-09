@@ -34,19 +34,24 @@ export class ProfileService {
     const user = await this.userService.findOne(phoneNumber);
     if (user) {
       const profile = this.repo.create(dto);
-      console.log(profile);
+      // console.log(profile);
 
       profile.works = await this.backgroundService.createWork(dto.work);
-      // //profile.addresses = await this.addressService.create(dto.address);
+      profile.education = await this.backgroundService.createProfession(
+        dto.education,
+      );
+
       profile.location = await this.addressService.createLocation(dto.location);
       profile.churches = await this.churchServuce.create(dto.church);
       profile.skills = await this.backgroundService.createSkill(dto.skill);
       profile.user = user;
 
-      return this.repo.save(profile);
-    }
+      const ppp = await this.repo.save(profile);
+      console.log({ ppp });
 
-    throw new BadRequestException('No user');
+      return ppp;
+    } else
+      throw new BadRequestException('User not found with this ', phoneNumber);
   }
 
   async createProfilePic(profileId: string, file: Express.Multer.File) {
@@ -59,6 +64,27 @@ export class ProfileService {
         this.repo.update({ id: profileId }, profile);
       }
     }
+  }
+
+  async saveProfilePicture(id, photo_url) {
+    const profile = await this.repo.findOne({ where: { id } });
+    profile.photo_url = photo_url.photo;
+
+    return this.repo.save(profile);
+  }
+
+  async savePassport(id, passport_url) {
+    const profile = await this.repo.findOne({ where: { id } });
+    profile.passport_url = passport_url.photo;
+
+    return this.repo.save(profile);
+  }
+
+  async saveCard(id, card_url) {
+    const profile = await this.repo.findOne({ where: { id } });
+    profile.card_url = card_url.photo;
+
+    return this.repo.save(profile);
   }
 
   async findByUserId(userId: string) {
