@@ -25,6 +25,5 @@ export class Church {
   branch: string;
 
   @OneToOne(() => Profile, (profile) => profile.churches)
-  @JoinColumn()
   profile: Profile;
 }

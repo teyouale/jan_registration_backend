@@ -41,8 +41,10 @@ export class ProfileService {
         dto.education,
       );
 
+      const church = await this.churchServuce.create(dto.church);
+      console.log(church);
       profile.location = await this.addressService.createLocation(dto.location);
-      profile.churches = await this.churchServuce.create(dto.church);
+      profile.churches = church;
       profile.skills = await this.backgroundService.createSkill(dto.skill);
       profile.user = user;
 

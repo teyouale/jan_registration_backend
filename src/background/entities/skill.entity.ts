@@ -25,6 +25,5 @@ export class Skill {
   isPrimary: boolean;
 
   @ManyToOne(() => Profile, (profile) => profile.skills)
-  @JoinColumn()
   profile: Profile;
 }

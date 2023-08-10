@@ -59,32 +59,35 @@ export class Profile {
   @Column({ nullable: true })
   profile_picture_id: string;
 
-  @Column()
+  @Column({ nullable: true })
   photo_url: string;
 
-  @Column()
+  @Column({ nullable: true })
   passport_url: string;
 
-  @Column()
+  @Column({ nullable: true })
   card_url: string;
 
   @OneToOne(() => User, (user) => user.profile, { lazy: true, cascade: true })
   user: User;
 
-  @OneToOne(() => Church, (churches) => churches.profile, {
+  @OneToOne(() => Church, {
+    nullable: true,
     eager: true,
     cascade: true,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   churches: Church;
 
-  @OneToOne(() => Work, (work) => work.profile, {
+  @OneToOne(() => Work, {
     eager: true,
     cascade: true,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   works: Work;
 
   @OneToOne(() => Location, {
@@ -93,6 +96,7 @@ export class Profile {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   location: Location;
 
   // @OneToMany(() => Address, (address) => address.profile, {
@@ -109,6 +113,7 @@ export class Profile {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   skills: Skill[];
 
   @OneToMany(() => Education, (education) => education.profile, {
@@ -117,6 +122,7 @@ export class Profile {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   education: Education[];
 
   @AfterInsert()

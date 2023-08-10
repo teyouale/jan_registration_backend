@@ -22,6 +22,5 @@ export class Education {
   value: string;
 
   @ManyToOne(() => Profile, (profile) => profile.education)
-  @JoinColumn()
   profile: Profile;
 }
