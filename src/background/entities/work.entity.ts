@@ -21,7 +21,7 @@ export class Work {
   @Column({ nullable: true })
   license: string;
 
-  @OneToOne(() => Profile, (profile) => profile.works, { eager: true })
+  @OneToOne(() => Profile, (profile) => profile.works)
   @JoinColumn()
   profile: Profile;
 }

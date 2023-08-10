@@ -30,6 +30,6 @@ export class Location {
   @Column({ nullable: true })
   specificLocation: string;
 
-  @OneToOne(() => Profile, (profile) => profile.location, { eager: true })
+  @OneToOne(() => Profile, (profile) => profile.location)
   profile: Profile;
 }
