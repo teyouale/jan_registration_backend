@@ -80,6 +80,15 @@ export class NewProfileDto {
   profile_picture_id: string;
 
   @ApiProperty()
+  photo_url: string;
+
+  @ApiProperty()
+  passport_url: string;
+
+  @ApiProperty()
+  card_url: string;
+
+  @ApiProperty()
   @IsDefined()
   @IsArray()
   @ValidateNested()

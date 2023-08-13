@@ -59,6 +59,6 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }

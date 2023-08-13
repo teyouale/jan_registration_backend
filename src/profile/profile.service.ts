@@ -47,6 +47,7 @@ export class ProfileService {
       profile.churches = church;
       profile.skills = await this.backgroundService.createSkill(dto.skill);
       profile.user = user;
+      
 
       const ppp = await this.repo.save(profile);
       console.log({ ppp });
