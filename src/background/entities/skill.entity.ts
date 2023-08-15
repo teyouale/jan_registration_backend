@@ -25,9 +25,9 @@ export class Skill {
   isPrimary: boolean;
 
   @ManyToOne(() => Profile, (profile) => profile.skills, {
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
+    // cascade: true,
+    // onUpdate: 'CASCADE',
+    // onDelete: 'CASCADE',
   })
   profile: Profile;
 }

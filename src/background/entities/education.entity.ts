@@ -22,9 +22,9 @@ export class Education {
   value: string;
 
   @ManyToOne(() => Profile, (profile) => profile.education, {
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
+    // cascade: true,
+    // onUpdate: 'CASCADE',
+    // onDelete: 'CASCADE',
   })
   profile: Profile;
 }
