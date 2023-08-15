@@ -68,59 +68,41 @@ export class Profile {
   @Column({ nullable: true })
   card_url: string;
 
-  @OneToOne(() => User, (user) => user.profile, { lazy: true, cascade: true })
+  @OneToOne(() => User, (user) => user.profile, {
+    lazy: true,
+  })
   user: User;
 
   @OneToOne(() => Church, {
     nullable: true,
     eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
   })
   @JoinColumn()
   churches: Church;
 
   @OneToOne(() => Work, {
     eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
   })
   @JoinColumn()
   works: Work;
 
   @OneToOne(() => Location, {
     eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
   })
   @JoinColumn()
   location: Location;
 
-  // @OneToMany(() => Address, (address) => address.profile, {
-  //   lazy: true,
-  //   cascade: true,
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'CASCADE',
-  // })
-  // addresses: Address[];
-
   @OneToMany(() => Skill, (skill) => skill.profile, {
     eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
   })
   @JoinColumn()
   skills: Skill[];
 
   @OneToMany(() => Education, (education) => education.profile, {
     eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
+    // cascade: true,
+    // onUpdate: 'CASCADE',
+    // onDelete: 'CASCADE',
   })
   @JoinColumn()
   education: Education[];

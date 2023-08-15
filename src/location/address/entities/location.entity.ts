@@ -30,6 +30,10 @@ export class Location {
   @Column({ nullable: true })
   specificLocation: string;
 
-  @OneToOne(() => Profile, (profile) => profile.location)
+  @OneToOne(() => Profile, (profile) => profile.location, {
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   profile: Profile;
 }

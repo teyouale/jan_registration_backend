@@ -21,6 +21,10 @@ export class Education {
   @Column()
   value: string;
 
-  @ManyToOne(() => Profile, (profile) => profile.education)
+  @ManyToOne(() => Profile, (profile) => profile.education, {
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   profile: Profile;
 }

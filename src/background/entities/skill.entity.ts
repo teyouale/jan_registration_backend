@@ -24,6 +24,10 @@ export class Skill {
   @Column({ nullable: true })
   isPrimary: boolean;
 
-  @ManyToOne(() => Profile, (profile) => profile.skills)
+  @ManyToOne(() => Profile, (profile) => profile.skills, {
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   profile: Profile;
 }
