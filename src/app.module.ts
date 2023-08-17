@@ -24,6 +24,8 @@ import { Church } from './church/entities/church.entity';
 import { Work } from './background/entities/work.entity';
 import { Skill } from './background/entities/skill.entity';
 import { Education } from './background/entities/education.entity';
+import { CommentModule } from './comment/comment.module';
+import { Comment } from './comment/entities/comment.entity';
 
 @Module({
   imports: [
@@ -59,6 +61,7 @@ import { Education } from './background/entities/education.entity';
           Work,
           Skill,
           Education,
+          Comment,
         ],
         synchronize: true,
       }),
@@ -73,6 +76,7 @@ import { Education } from './background/entities/education.entity';
     RequestModule,
     ChurchModule,
     BackgroundModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

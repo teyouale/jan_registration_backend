@@ -29,12 +29,9 @@ export class ProfileService {
     dto: NewProfileDto,
     file: Express.Multer.File = null,
   ) {
-    console.log('create profile', phoneNumber);
-
     const user = await this.userService.findOne(phoneNumber);
     if (user) {
       const profile = this.repo.create(dto);
-      // console.log(profile);
 
       profile.works = await this.backgroundService.createWork(dto.work);
       profile.education = await this.backgroundService.createProfession(
@@ -42,15 +39,13 @@ export class ProfileService {
       );
 
       const church = await this.churchServuce.create(dto.church);
-      console.log(church);
+
       profile.location = await this.addressService.createLocation(dto.location);
       profile.churches = church;
       profile.skills = await this.backgroundService.createSkill(dto.skill);
       profile.user = user;
-      
 
       const ppp = await this.repo.save(profile);
-      console.log({ ppp });
 
       return ppp;
     } else
