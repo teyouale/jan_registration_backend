@@ -9,20 +9,22 @@ import { Repository } from 'typeorm';
 export class CommentService {
   constructor(
     @InjectRepository(Comment)
-    private repo: Repository<Comment>,
+    private commentRepository: Repository<Comment>,
   ) {}
 
   async create(createCommentDto: CreateCommentDto): Promise<Comment> {
     const comments = new Comment();
+    console.log(comments);
+    console.log('dto', createCommentDto);
 
     comments.name = createCommentDto.name;
     comments.phone_number = createCommentDto.phone_number;
     comments.description = createCommentDto.description;
-    return comments;
+    return await this.commentRepository.save(comments);
   }
 
   findAll() {
-    return `This action returns all comment`;
+    return this.commentRepository.find();
   }
 
   findOne(id: number) {
