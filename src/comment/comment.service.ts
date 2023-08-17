@@ -14,9 +14,6 @@ export class CommentService {
 
   async create(createCommentDto: CreateCommentDto): Promise<Comment> {
     const comments = new Comment();
-    console.log(comments);
-    console.log('dto', createCommentDto);
-
     comments.name = createCommentDto.name;
     comments.phone_number = createCommentDto.phone_number;
     comments.description = createCommentDto.description;
