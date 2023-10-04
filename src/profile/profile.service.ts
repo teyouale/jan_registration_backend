@@ -13,10 +13,13 @@ import { DocumentService } from 'src/document/document/document.service';
 import { BackgroundService } from 'src/background/background.service';
 import { AddressService } from 'src/location/address/address.service';
 import { ChurchService } from 'src/church/church.service';
+import { NewassignFamDto } from './dtos/new-assignFam.dto';
+import { AssignFam } from './entity/assignFam.entity';
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(Profile) private repo: Repository<Profile>,
+    @InjectRepository(AssignFam) private AssignFamrepo: Repository<AssignFam>,
     private userService: UsersService,
     private backgroundService: BackgroundService,
     private churchServuce: ChurchService,
@@ -51,6 +54,36 @@ export class ProfileService {
     } else
       throw new BadRequestException('User not found with this ', phoneNumber);
   }
+
+  async assignFams(newassignfamDto: NewassignFamDto) {
+    const assigndr = this.AssignFamrepo.create();
+    assigndr.family = newassignfamDto.family;
+    assigndr.profile = await this.findOne(newassignfamDto.profile);
+
+    return this.AssignFamrepo.save(assigndr);
+  }
+
+  // async assignFams(newassignfamDto: NewassignFamDto) {
+  //   // Check if an assignment already exists for the given profile and family
+  //   const existingAssignment = await this.AssignFamrepo.findOne({
+  //     where: {
+  //       family: newassignfamDto.family,
+  //       profile: newassignfamDto.profile,
+  //     },
+  //   });
+
+  //   if (existingAssignment) {
+  //     // An assignment already exists, so return an error or handle it as needed
+  //     throw new Error('This profile is already assigned to the family.');
+  //   }
+
+  //   // If no assignment exists, create a new one
+  //   const assigndr = this.AssignFamrepo.create();
+  //   assigndr.family = newassignfamDto.family;
+  //   assigndr.profile = await this.findOne(newassignfamDto.profile);
+
+  //   return this.AssignFamrepo.save(assigndr);
+  // }
 
   async createProfilePic(profileId: string, file: Express.Multer.File) {
     const profile = await this.repo.findOneBy({ id: profileId });
@@ -109,6 +142,10 @@ export class ProfileService {
 
   find() {
     return this.repo.find();
+  }
+
+  findOnes(id: string) {
+    return this.repo.findOneBy({ id });
   }
 
   async update(id: string, attrs: Partial<Profile>) {

@@ -17,6 +17,7 @@ import { Skill } from 'src/background/entities/skill.entity';
 import { Education } from 'src/background/entities/education.entity';
 import { Work } from 'src/background/entities/work.entity';
 import { Church } from 'src/church/entities/church.entity';
+import { AssignFam } from './assignFam.entity';
 
 @Entity()
 export class Profile {
@@ -67,6 +68,10 @@ export class Profile {
 
   @Column()
   card_url: string;
+
+  @OneToOne(() => AssignFam, (assignfam) => assignfam.profile, { eager: true })
+  @JoinColumn()
+  assignfam: AssignFam;
 
   @OneToOne(() => User, (user) => user.profile, {
     lazy: true,

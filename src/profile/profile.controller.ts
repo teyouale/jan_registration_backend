@@ -18,6 +18,7 @@ import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { NewProfileDto } from './dtos/new-profile.dto';
 import { UpdateProfileDto } from './dtos/update-profile.dto';
 import { ProfileService } from './profile.service';
+import { NewassignFamDto } from './dtos/new-assignFam.dto';
 
 @ApiBearerAuth()
 @ApiTags('Profile')
@@ -71,6 +72,11 @@ export class ProfileController {
     return this.profileService.saveCard(id, card);
   }
 
+  @Post('/newAssign')
+  assignFams(@Body() NewassignfamDto: NewassignFamDto) {
+    return this.profileService.assignFams(NewassignfamDto);
+  }
+
   @Get('/myprofile')
   getMyProfile(@Request() req) {
     const userId = req.user.userId;
@@ -79,6 +85,11 @@ export class ProfileController {
 
   @Get('/:id')
   findProfile(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.profileService.findOne(id);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
     return this.profileService.findOne(id);
   }
 

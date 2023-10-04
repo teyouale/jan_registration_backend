@@ -26,6 +26,7 @@ import { Skill } from './background/entities/skill.entity';
 import { Education } from './background/entities/education.entity';
 import { CommentModule } from './comment/comment.module';
 import { Comment } from './comment/entities/comment.entity';
+import { AssignFam } from './profile/entity/assignFam.entity';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { Comment } from './comment/entities/comment.entity';
           Skill,
           Education,
           Comment,
+          AssignFam,
         ],
         synchronize: true,
       }),
