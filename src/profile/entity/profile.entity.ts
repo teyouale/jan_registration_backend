@@ -59,13 +59,13 @@ export class Profile {
   @Column({ nullable: true })
   profile_picture_id: string;
 
-  @Column({ nullable: true })
+  @Column()
   photo_url: string;
 
-  @Column({ nullable: true })
+  @Column()
   passport_url: string;
 
-  @Column({ nullable: true })
+  @Column()
   card_url: string;
 
   @OneToOne(() => User, (user) => user.profile, {
