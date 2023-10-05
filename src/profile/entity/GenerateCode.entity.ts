@@ -4,7 +4,7 @@ import { Profile } from './profile.entity';
 
 @Entity()
 export class GenerateCode {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ unique: true })
