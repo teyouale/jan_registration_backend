@@ -19,6 +19,7 @@ import { NewProfileDto } from './dtos/new-profile.dto';
 import { UpdateProfileDto } from './dtos/update-profile.dto';
 import { ProfileService } from './profile.service';
 import { NewassignFamDto } from './dtos/new-assignFam.dto';
+import { NewGenerateCodeDto } from './dtos/new-generatecode.dto';
 
 @ApiBearerAuth()
 @ApiTags('Profile')
@@ -34,6 +35,17 @@ export class ProfileController {
   @Get()
   findAll() {
     return this.profileService.find();
+  }
+
+  @Post('/generatecode')
+  generatecode(@Body() newCodeDto: NewGenerateCodeDto) {
+    return this.profileService.generatecode(newCodeDto);
+  }
+
+  @Get('generate')
+  async generateUniqueNumber(): Promise<number> {
+    const uniqueNumber = await this.profileService.generateUniqueNumber();
+    return uniqueNumber;
   }
 
   @Post('/profilepicture/:profileId')

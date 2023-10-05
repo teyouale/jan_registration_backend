@@ -18,6 +18,7 @@ import { Education } from 'src/background/entities/education.entity';
 import { Work } from 'src/background/entities/work.entity';
 import { Church } from 'src/church/entities/church.entity';
 import { AssignFam } from './assignFam.entity';
+import { GenerateCode } from './GenerateCode.entity';
 
 @Entity()
 export class Profile {
@@ -72,6 +73,12 @@ export class Profile {
   @OneToOne(() => AssignFam, (assignfam) => assignfam.profile, { eager: true })
   @JoinColumn()
   assignfam: AssignFam;
+
+  @OneToOne(() => GenerateCode, (generatecode) => generatecode.profile, {
+    eager: true,
+  })
+  @JoinColumn()
+  generatecode: GenerateCode;
 
   @OneToOne(() => User, (user) => user.profile, {
     lazy: true,

@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
+  Provider,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,16 +17,25 @@ import { AddressService } from 'src/location/address/address.service';
 import { ChurchService } from 'src/church/church.service';
 import { NewassignFamDto } from './dtos/new-assignFam.dto';
 import { AssignFam } from './entity/assignFam.entity';
+import { GenerateCode } from './entity/GenerateCode.entity';
+import { NewGenerateCodeDto } from './dtos/new-generatecode.dto';
+
+// export const SetProvider: Provider = {
+//   provide: 'UniqueNumbersSet', // Provide a unique identifier for the set
+//   useValue: new Set<number>(),
+// };
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(Profile) private repo: Repository<Profile>,
     @InjectRepository(AssignFam) private AssignFamrepo: Repository<AssignFam>,
+    @InjectRepository(GenerateCode)
+    private usedNumbers: Repository<GenerateCode>,
     private userService: UsersService,
     private backgroundService: BackgroundService,
     private churchServuce: ChurchService,
     private addressService: AddressService,
-    private documentService: DocumentService,
+    private documentService: DocumentService, // private usedNumbers: Set<number> = new Set(),
   ) {}
 
   async create(
@@ -61,6 +72,50 @@ export class ProfileService {
     assigndr.profile = await this.findOne(newassignfamDto.profile);
 
     return this.AssignFamrepo.save(assigndr);
+  }
+
+  async generateUniqueNumber(): Promise<number> {
+    let uniqueNumber: number;
+
+    do {
+      uniqueNumber = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+    } while (await this.usedNumbers.findOne({ where: { uniqueNumber } }));
+
+    return uniqueNumber;
+  }
+
+  // async generateCode(newCodeDto: NewGenerateCodeDto) {
+  //   // Generate a new unique number
+  //   const uniqueNumber = this.generateUniqueNumber();
+
+  //   // Find the profile by ID (assuming newCodeDto.profile is the profile ID)
+  //   const profile = await this.findOne(newCodeDto.profile);
+
+  //   // Create a new entry for UsedNumber
+  //   const usedNumber = this.usedNumbers.create({
+  //     uniqueNumber,
+  //     profile,
+  //   });
+
+  //   // Save the new UsedNumber entry
+  //   return this.usedNumbers.save(usedNumber);
+  // }
+
+  async generatecode(newCodeDto: NewGenerateCodeDto) {
+    // Generate a new unique number
+    const uniqueNumber = await this.generateUniqueNumber();
+
+    // Find the profile by ID (assuming newCodeDto.profile is the profile ID)
+    const profile = await this.findOne(newCodeDto.profile);
+
+    // Create a new entry for UsedNumber
+    const usedNumber = new GenerateCode();
+    usedNumber.uniqueNumber = uniqueNumber;
+    usedNumber.profile = profile;
+
+    // Save the new UsedNumber entry
+    return this.usedNumbers.save(usedNumber);
+    // return usedNumber;?
   }
 
   // async assignFams(newassignfamDto: NewassignFamDto) {

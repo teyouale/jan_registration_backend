@@ -14,6 +14,7 @@ import { Address } from 'src/location/address/entities/address.entity';
 import { AddressModule } from 'src/location/address/address.module';
 import { Education } from 'src/background/entities/education.entity';
 import { AssignFam } from './entity/assignFam.entity';
+import { GenerateCode } from './entity/GenerateCode.entity';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AssignFam } from './entity/assignFam.entity';
       Address,
       Education,
       AssignFam,
+      GenerateCode,
     ]),
     UsersModule,
     DocumentModule,

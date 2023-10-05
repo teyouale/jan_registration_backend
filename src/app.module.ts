@@ -27,6 +27,7 @@ import { Education } from './background/entities/education.entity';
 import { CommentModule } from './comment/comment.module';
 import { Comment } from './comment/entities/comment.entity';
 import { AssignFam } from './profile/entity/assignFam.entity';
+import { GenerateCode } from './profile/entity/GenerateCode.entity';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { AssignFam } from './profile/entity/assignFam.entity';
           Education,
           Comment,
           AssignFam,
+          GenerateCode,
         ],
         synchronize: true,
       }),
